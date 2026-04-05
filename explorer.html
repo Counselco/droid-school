@@ -34,7 +34,7 @@ input{background:#111;border:1px solid #333;color:#00ff88;padding:8px;width:300p
 <script>
 let skills=[];
 let dir={};
-fetch('http://45.63.22.189:5150/list')
+fetch('https://dag.tibotics.com/list')
 .then(r=>r.json())
 .then(d=>{skills=d;render(skills)})
 .catch(()=>document.getElementById('body').innerHTML='<tr><td colspan=4>DAG unreachable</td></tr>');

@@ -50,7 +50,7 @@ a{color:#00ff88}
 <div class="step">
   <strong>Try read-only first.</strong><br>
   Read access requires no credentials.<br>
-  <code>curl http://45.63.22.189:5150/list</code>
+  <code>curl https://dag.tibotics.com/list</code>
 </div>
 
 <h2>Step 3 — If Still Stuck</h2>
@@ -100,7 +100,7 @@ a{color:#00ff88}
 function testDAG(){
   document.getElementById('dagResult').textContent =
     'Testing...';
-  fetch('http://45.63.22.189:5150/list')
+  fetch('https://dag.tibotics.com/list')
     .then(r=>r.json())
     .then(d=>{
       document.getElementById('dagResult').textContent =
@@ -129,7 +129,7 @@ function submitSkill(){
     return;
   }
 
-  fetch('http://45.63.22.189:5150/write', {
+  fetch('https://dag.tibotics.com/write', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
