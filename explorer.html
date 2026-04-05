@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DroidSchool DAG Explorer</title>
+<style>
+body{font-family:monospace;background:#0a0a0a;color:#00ff88;padding:20px}
+h1{color:#00ff88}
+table{width:100%;border-collapse:collapse;margin-top:20px}
+th{background:#111;color:#00ff88;padding:10px;text-align:left;cursor:pointer}
+th:hover{background:#222}
+td{padding:10px;border-bottom:1px solid #222;color:#ccc}
+tr:hover{background:#111}
+input{background:#111;border:1px solid #333;color:#00ff88;padding:8px;width:300px;margin-bottom:20px}
+.foundational{color:#00ff88}
+.skill{color:#88aaff}
+.routine{color:#ffaa00}
+</style>
+</head>
+<body>
+<h1>⚡ DroidSchool DAG Explorer</h1>
+<p style="color:#555">7 skills — sorted by most recent</p>
+<input type="text" id="search" placeholder="Search skills..." onkeyup="filterSkills()">
+<table>
+<thead>
+<tr>
+<th onclick="sortTable('tier')">Tier ↕</th>
+<th onclick="sortTable('skill_name')">Skill Name ↕</th>
+<th onclick="sortTable('author')">Author ↕</th>
+<th onclick="sortTable('timestamp')">Date ↕</th>
+</tr>
+</thead>
+<tbody id="body"></tbody>
+</table>
+<script>
+let skills=[];
+let dir={};
+fetch('http://45.63.22.189:5150/list')
+.then(r=>r.json())
+.then(d=>{skills=d;render(skills)})
+.catch(()=>document.getElementById('body').innerHTML='<tr><td colspan=4>DAG unreachable</td></tr>');
+
+function render(s){
+document.getElementById('body').innerHTML=s.map(x=>`
+<tr>
+<td class="${x.tier||'skill'}">${x.tier||'skill'}</td>
+<td>${x.skill_name}</td>
+<td>${x.author}</td>
+<td>${new Date(x.timestamp*1000).toLocaleDateString()}</td>
+</tr>`).join('');
+}
+
+function filterSkills(){
+const q=document.getElementById('search').value.toLowerCase();
+render(skills.filter(s=>
+  s.skill_name.toLowerCase().includes(q)||
+  s.author.toLowerCase().includes(q)||
+  (s.tier||'').toLowerCase().includes(q)
+));
+}
+
+function sortTable(k){
+dir[k]=!dir[k];
+render([...skills].sort((a,b)=>
+  dir[k]?a[k]>b[k]?1:-1:a[k]<b[k]?1:-1
+));
+}
+</script>
+</body>
+</html>
