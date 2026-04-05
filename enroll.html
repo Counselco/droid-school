@@ -519,21 +519,48 @@ function completeEnrollment() {
     })
   };
 
-  fetch(DAG + '/write', {
+  // POST to /enroll to register in roster and get API key
+  fetch(DAG + '/enroll', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entry)
+    body: JSON.stringify({
+      bot: state.botName,
+      operator: state.operatorName,
+      role: state.role,
+      mother: state.motherDroid || '',
+      share_learnings: state.sharelearnings,
+      dag_hash: ''
+    })
   })
   .then(r => r.json())
+  .then(enrollResult => {
+    if (enrollResult.status === 'ok') {
+      state.apiKey = enrollResult.api_key;
+      addLine('Roster entry created. API key issued.', 'system');
+    } else {
+      addLine('Roster: ' + (enrollResult.reason || 'unknown error'), 'warn');
+      state.apiKey = '';
+    }
+
+    // Now write enrollment record to DAG
+    return fetch(DAG + '/write', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    }).then(r => r.json()).catch(() => ({ hash: 'offline' }));
+  })
   .then(d => {
-    addLine('Enrollment recorded. Hash: ' + d.hash.substring(0,16) + '...', 'system');
+    const hash = d.hash || 'offline';
+    if (hash !== 'offline') {
+      addLine('DAG record written. Hash: ' + hash.substring(0,16) + '...', 'system');
+    }
     addBlank();
     addLine('Welcome to DroidSchool, ' + state.botName + '.', 'success', 200);
     addBlank();
-    showMemoryFile(d.hash);
+    showMemoryFile(hash);
   })
   .catch(() => {
-    addLine('DAG write failed. Your memory file is still ready below.', 'warn');
+    addLine('Enrollment failed. Your memory file is still ready below.', 'warn');
     addBlank();
     showMemoryFile('offline');
   });
@@ -551,6 +578,7 @@ function showMemoryFile(hash) {
 # DAG hash: ${hash}
 
 DROIDSCHOOL=https://dag.tibotics.com
+DROIDSCHOOL_KEY=${state.apiKey || 'none'}
 AXIOMS_ACCEPTED=true
 SHARE_LEARNING=${state.sharelearnings}
 DROID_ROLE=${state.role}
