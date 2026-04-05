@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DroidSchool</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Courier New', monospace;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+h1 {
+  font-size: 3rem;
+  color: #00ff88;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+.tagline {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
+}
+.enter-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  transition: all 0.2s;
+}
+.enter-btn:hover {
+  background: #00ff88;
+  color: #0a0a0a;
+}
+.safe-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 12px 36px;
+  border: 3px solid #ffaa00;
+  box-shadow: 0 0 12px #ffaa00, 0 0 24px rgba(255,170,0,0.3);
+  color: #ffaa00;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  transition: all 0.2s;
+}
+.safe-btn:hover {
+  background: #ffaa00;
+  color: #0a0a0a;
+}
+</style>
+</head>
+<body>
+<h1>DroidSchool</h1>
+<p class="tagline">Skill-based learning on a DAG</p>
+<a href="explorer.html" class="enter-btn">ENTER THE DAG</a>
+<a href="safe-entry.html" class="safe-btn">SAFE ENTRY</a>
+</body>
+</html>
