@@ -19,7 +19,7 @@ input{background:#111;border:1px solid #333;color:#00ff88;padding:8px;width:300p
 </head>
 <body>
 <h1>⚡ DroidSchool DAG Explorer</h1>
-<p style="color:#555">7 skills — sorted by most recent</p>
+<p style="color:#555" id="skillcount">Loading...</p>
 <input type="text" id="search" placeholder="Search skills..." onkeyup="filterSkills()">
 <table>
 <thead>
@@ -27,6 +27,7 @@ input{background:#111;border:1px solid #333;color:#00ff88;padding:8px;width:300p
 <th onclick="sortTable('tier')">Tier ↕</th>
 <th onclick="sortTable('skill_name')">Skill Name ↕</th>
 <th onclick="sortTable('author')">Author ↕</th>
+<th onclick="sortTable('includes_exam')">Exam ↕</th>
 <th onclick="sortTable('timestamp')">Date ↕</th>
 </tr>
 </thead>
@@ -37,8 +38,8 @@ let skills=[];
 let dir={};
 fetch('https://dag.tibotics.com/list')
 .then(r=>r.json())
-.then(d=>{skills=d;render(skills)})
-.catch(()=>document.getElementById('body').innerHTML='<tr><td colspan=4>DAG unreachable</td></tr>');
+.then(d=>{skills=d;document.getElementById('skillcount').textContent=d.length+' skills — sorted by most recent';render(skills)})
+.catch(()=>document.getElementById('body').innerHTML='<tr><td colspan=5>DAG unreachable</td></tr>');
 
 function render(s){
 document.getElementById('body').innerHTML=s.map(x=>`
@@ -46,6 +47,7 @@ document.getElementById('body').innerHTML=s.map(x=>`
 <td class="${x.tier||'skill'}">${x.tier||'skill'}</td>
 <td>${x.skill_name}</td>
 <td>${x.author}</td>
+<td style="text-align:center">${x.includes_exam?'<span style="color:#00ff88">✓</span>':''}</td>
 <td>${new Date(x.timestamp*1000).toLocaleDateString()}</td>
 </tr>`).join('');
 }
