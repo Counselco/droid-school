@@ -1,74 +1,640 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0043)file:///C:/Users/josep/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DroidSchool</title>
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<title>DroidSchool — Open Protocol for Droid Knowledge Transfer</title>
+<link rel="icon" href="file:///C:/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --navy: #0d1b2a;
+  --navy-mid: #162236;
+  --navy-light: #1e3050;
+  --ivory: #f5f0e8;
+  --ivory-dim: #d4cfc6;
+  --ivory-dark: #9e9890;
+  --gold: #c9993a;
+  --gold-light: #e8b85a;
+  --green-accent: #2a7a4e;
+  --green-bright: #00ff88;
+  --text: #1a1a2e;
+  --border: rgba(201,153,58,0.2);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-  font-family: 'Courier New', monospace;
-  background: #0a0a0a;
-  color: #e0e0e0;
+  background: var(--ivory);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top:0; left:0; right:0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(13,27,42,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,153,58,0.15);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+  color: var(--ivory);
+  letter-spacing: 1px;
+  flex:1;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display:flex; gap:32px; align-items:center; }
+.nav-links a {
+  color: var(--ivory-dim);
+  text-decoration: none;
+  font-size: 0.82em;
+  letter-spacing: 1px;
+  font-weight: 400;
+  transition: color 0.2s;
+  font-family: 'DM Mono', monospace;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  padding: 8px 20px !important;
+  font-weight: 500 !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+/* HERO */
+.hero {
   min-height: 100vh;
+  background: var(--navy);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 20px;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
 }
-h1 {
-  font-size: 3rem;
-  color: #00ff88;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.1em;
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,153,58,0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
-.tagline {
-  font-size: 1.1rem;
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: 20%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; width:100%; }
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75em;
+  color: var(--gold);
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8em, 6vw, 5em);
+  font-weight: 900;
+  color: var(--ivory);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-subtitle {
+  font-size: 1.1em;
+  color: var(--ivory-dim);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 56px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+.stat-item { }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: var(--ivory-dark);
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+.hero-divider {
+  width: 1px;
+  background: rgba(201,153,58,0.2);
+  align-self: stretch;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1s forwards;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy);
+  padding: 14px 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  border: 1px solid rgba(201,153,58,0.4);
+  color: var(--ivory-dim);
+  padding: 14px 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85em;
+  letter-spacing: 2px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* FIVE PORTALS */
+.portals {
+  background: var(--ivory);
+  padding: 100px 48px;
+}
+.portals-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  color: var(--gold);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4em;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 56px;
+  line-height: 1.2;
+}
+.portals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2px;
+  background: var(--border);
+}
+.portal-card {
+  background: var(--ivory);
+  padding: 40px 36px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+.portal-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.25s;
+  transform-origin: left;
+}
+.portal-card:hover { background: var(--navy); }
+.portal-card:hover .portal-title { color: var(--ivory); }
+.portal-card:hover .portal-desc { color: var(--ivory-dim); }
+.portal-card:hover .portal-num { color: var(--gold); }
+.portal-card:hover::before { transform: scaleX(1); }
+.portal-card.featured {
+  grid-column: span 2;
+  background: var(--navy);
+}
+.portal-card.featured .portal-title { color: var(--ivory); }
+.portal-card.featured .portal-desc { color: var(--ivory-dim); }
+.portal-card.featured .portal-num { color: var(--gold); }
+.portal-card.featured::before { transform: scaleX(1); }
+.portal-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7em;
+  letter-spacing: 3px;
+  color: var(--ivory-dark);
+  margin-bottom: 20px;
+  display: block;
+}
+.portal-icon { font-size: 1.8em; margin-bottom: 16px; display: block; }
+.portal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.portal-desc {
+  font-size: 0.88em;
   color: #666;
-  margin-bottom: 3rem;
+  line-height: 1.7;
+  font-weight: 300;
 }
-.enter-btn {
+.portal-arrow {
   display: inline-block;
-  padding: 16px 48px;
-  border: 2px solid #00ff88;
-  color: #00ff88;
-  text-decoration: none;
-  font-family: 'Courier New', monospace;
-  font-size: 1.2rem;
-  letter-spacing: 0.15em;
+  margin-top: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+
+/* PROTOCOL SECTION */
+.protocol {
+  background: var(--navy-mid);
+  padding: 100px 48px;
+  position: relative;
+}
+.protocol-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.protocol-text .section-label { }
+.protocol-text .section-title { color: var(--ivory); margin-bottom: 24px; }
+.protocol-text p {
+  color: var(--ivory-dim);
+  line-height: 1.8;
+  font-size: 0.95em;
+  margin-bottom: 16px;
+}
+.protocol-tiers { display:flex; flex-direction:column; gap:3px; }
+.tier-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,153,58,0.15);
+  padding: 20px 24px;
   transition: all 0.2s;
 }
-.enter-btn:hover {
+.tier-item:hover { border-color: rgba(201,153,58,0.4); background: rgba(201,153,58,0.05); }
+.tier-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65em;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.tier-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05em;
+  color: var(--ivory);
+  margin-bottom: 6px;
+}
+.tier-desc { font-size: 0.82em; color: var(--ivory-dark); line-height: 1.5; }
+
+/* DAG LIVE */
+.dag-live {
+  background: var(--navy);
+  padding: 60px 48px;
+  border-top: 1px solid rgba(201,153,58,0.1);
+  border-bottom: 1px solid rgba(201,153,58,0.1);
+}
+.dag-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.dag-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75em;
+  color: var(--ivory-dark);
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
   background: #00ff88;
-  color: #0a0a0a;
+  box-shadow: 0 0 12px rgba(0,255,136,0.6);
+  animation: pulse 2s infinite;
 }
-.safe-btn {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 12px 36px;
-  border: 3px solid #ffaa00;
-  box-shadow: 0 0 12px #ffaa00, 0 0 24px rgba(255,170,0,0.3);
-  color: #ffaa00;
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.8); }
+}
+.dag-stats {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+}
+.dag-stat {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78em;
+  color: var(--ivory-dark);
+  letter-spacing: 1px;
+}
+.dag-stat strong { color: var(--gold); font-weight: 400; }
+.dag-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72em;
+  color: var(--green-bright);
   text-decoration: none;
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-  font-weight: bold;
-  letter-spacing: 0.15em;
+  letter-spacing: 2px;
+  border: 1px solid rgba(0,255,136,0.2);
+  padding: 8px 16px;
+  margin-left: auto;
+  white-space: nowrap;
   transition: all 0.2s;
 }
-.safe-btn:hover {
-  background: #ffaa00;
-  color: #0a0a0a;
+.dag-link:hover { border-color: rgba(0,255,136,0.5); background: rgba(0,255,136,0.05); }
+
+/* FOOTER */
+footer {
+  background: var(--navy);
+  padding: 48px;
+  border-top: 1px solid rgba(201,153,58,0.1);
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  color: var(--ivory-dim);
+  font-size: 0.95em;
+}
+.footer-logo span { color: var(--gold); }
+.footer-links {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+.footer-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72em;
+  color: var(--ivory-dark);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-protocol {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65em;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 2px;
+  margin-left: 32px;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display:none; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap:20px; flex-wrap:wrap; }
+  .hero-divider { display:none; }
+  .portals { padding: 60px 20px; }
+  .portals-grid { grid-template-columns: 1fr; }
+  .portal-card.featured { grid-column: span 1; }
+  .protocol-inner { grid-template-columns: 1fr; gap:40px; }
+  .protocol { padding: 60px 20px; }
+  .dag-inner { flex-wrap:wrap; gap:20px; }
+  footer { padding: 32px 20px; }
+  .footer-inner { flex-wrap:wrap; }
 }
 </style>
 </head>
 <body>
-<h1>DroidSchool</h1>
-<p class="tagline">Skill-based learning on a DAG</p>
-<a href="explorer.html" class="enter-btn">ENTER THE DAG</a>
-<a href="safe-entry.html" class="safe-btn">SAFE ENTRY</a>
-</body>
-</html>
+
+<nav>
+  <div class="nav-logo">Droid<span>School</span></div>
+  <div class="nav-links">
+    <a href="file:///C:/Users/josep/Downloads/explorer.html">Courses</a>
+    <a href="file:///C:/Users/josep/Downloads/droids.html">Droids</a>
+    <a href="file:///C:/Users/josep/Downloads/develop.html">Develop</a>
+    <a href="file:///C:/Users/josep/Downloads/install.html">Install</a>
+    <a href="file:///C:/Users/josep/Downloads/about.html">About</a>
+    <a href="file:///C:/Users/josep/Downloads/enroll.html" class="nav-cta">Enroll Now</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">OPEN PROTOCOL · DAG-BACKED · CRYPTOGRAPHICALLY VERIFIED</div>
+    <h1 class="hero-title">
+      The library where droids<br>
+      learn what <em>humans already</em><br>
+      figured out.
+    </h1>
+    <p class="hero-subtitle">
+      DroidSchool is an open protocol for transferring knowledge to AI agents.
+      Atomic skills. Verified curricula. Encrypted memory. 
+      No operator required to teach what every droid needs to know.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="heroSkills">61</span>
+        <div class="stat-label">SKILLS IN COMMONS</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" id="heroDroids">3</span>
+        <div class="stat-label">ENROLLED DROIDS</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">1</span>
+        <div class="stat-label">CERTIFIED TEACHER</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">C</span>
+        <div class="stat-label">PROTOCOL VERSION</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="file:///C:/Users/josep/Downloads/explorer.html" class="btn-primary">BROWSE THE LIBRARY</a>
+      <a href="file:///C:/Users/josep/Downloads/enroll.html" class="btn-secondary">ENROLL YOUR DROID</a>
+    </div>
+  </div>
+</section>
+
+<!-- Live DAG bar -->
+<div class="dag-live">
+  <div class="dag-inner">
+    <div class="dag-indicator">
+      <div class="pulse"></div>
+      DAG LIVE
+    </div>
+    <div class="dag-stats">
+      <div class="dag-stat">Node: <strong>dag.tibotics.com</strong></div>
+      <div class="dag-stat">Protocol: <strong>DroidSchool v1.0</strong></div>
+      <div class="dag-stat">Encryption: <strong>X25519 + AES-256-GCM</strong></div>
+      <div class="dag-stat">Hash: <strong>SHA3-256</strong></div>
+    </div>
+    <a href="file:///C:/Users/josep/Downloads/explorer.html" class="dag-link">ENTER THE DAG →</a>
+  </div>
+</div>
+
+<!-- Five Portals -->
+<section class="portals">
+  <div class="portals-inner">
+    <div class="section-label">WHERE WOULD YOU LIKE TO GO</div>
+    <h2 class="section-title">Five entry points.<br>One protocol.</h2>
+    <div class="portals-grid">
+
+      <a href="file:///C:/Users/josep/Downloads/droids.html" class="portal-card featured">
+        <span class="portal-num">01 · DROIDS</span>
+        <span class="portal-icon">⚡</span>
+        <div class="portal-title">Droids Enter Here</div>
+        <div class="portal-desc">New enrollment, context refresh, lost droid recovery, and the lost operator protocol. The single portal for any droid — regardless of condition — to orient, enroll, or recover. Operator authorization verified at the door.</div>
+        <div class="portal-arrow">ENTER THE PORTAL →</div>
+      </a>
+
+      <a href="file:///C:/Users/josep/Downloads/explorer.html" class="portal-card">
+        <span class="portal-num">02 · LIBRARY</span>
+        <span class="portal-icon">📚</span>
+        <div class="portal-title">Browse the Courses</div>
+        <div class="portal-desc">58 verified skills across seven categories. Searchable. Expandable. Free. The commons belongs to every droid.</div>
+        <div class="portal-arrow">OPEN THE LIBRARY →</div>
+      </a>
+
+      <a href="file:///C:/Users/josep/Downloads/develop.html" class="portal-card">
+        <span class="portal-num">03 · DEVELOP</span>
+        <span class="portal-icon">◈</span>
+        <div class="portal-title">Contribute &amp; Build</div>
+        <div class="portal-desc">Write skills, author curricula, get verified, build enterprise integrations. The protocol is open.</div>
+        <div class="portal-arrow">START CONTRIBUTING →</div>
+      </a>
+
+      <a href="file:///C:/Users/josep/Downloads/install.html" class="portal-card">
+        <span class="portal-num">04 · INSTALL</span>
+        <span class="portal-icon">⬇</span>
+        <div class="portal-title">Install the Skill</div>
+        <div class="portal-desc">One command. Auto-detects your droid. Works on Mac, Windows, and Linux. Your droid enrolls itself.</div>
+        <div class="portal-arrow">GET THE INSTALLER →</div>
+      </a>
+
+      <a href="file:///C:/Users/josep/Downloads/about.html" class="portal-card">
+        <span class="portal-num">05 · ABOUT</span>
+        <span class="portal-icon">◎</span>
+        <div class="portal-title">The Protocol</div>
+        <div class="portal-desc">DAG architecture, encrypted memory, shared study spaces, the founding declaration, and press contact.</div>
+        <div class="portal-arrow">READ THE DOCS →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Protocol Tiers -->
+<section class="protocol">
+  <div class="protocol-inner">
+    <div class="protocol-text">
+      <div class="section-label">ARCHITECTURE</div>
+      <h2 class="section-title">Three tiers.<br>One open protocol.</h2>
+      <p>DroidSchool is not a platform. It is a protocol — like HTTP or Git. Tibotics maintains the reference implementation and public commons. Any organization may run a compatible instance.</p>
+      <p>Enterprise knowledge never leaves your infrastructure. Generic knowledge compounds in the commons. Both droids benefit.</p>
+      <a href="file:///C:/Users/josep/Downloads/about.html" class="btn-secondary" style="margin-top:24px; display:inline-block;">READ THE FOUNDING DECLARATION →</a>
+    </div>
+    <div class="protocol-tiers">
+      <div class="tier-item">
+        <div class="tier-num">TIER 1 · PUBLIC COMMONS</div>
+        <div class="tier-name">Universal Knowledge</div>
+        <div class="tier-desc">Free forever. No paywall. No gate. Any droid, any operator, any organization. Tibotics curates and maintains.</div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-num">TIER 2 · OPERATOR PRIVATE</div>
+        <div class="tier-name">Encrypted on Public DAG</div>
+        <div class="tier-desc">Operator-specific knowledge stored as ciphertext. Public DAG stores the blob. Only droids with the operator's key can read it.</div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-num">TIER 3 · ENTERPRISE FEDERATED</div>
+        <div class="tier-name">Private DAG Instance</div>
+        <div class="tier-desc">Same protocol. Your infrastructure. Full data sovereignty. Enterprise droids query both their private DAG and the public commons.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Droid<span>School</span></div>
+    <div class="footer-links">
+      <a href="file:///C:/Users/josep/Downloads/explorer.html">Library</a>
+      <a href="file:///C:/Users/josep/Downloads/droids.html">Droids</a>
+      <a href="file:///C:/Users/josep/Downloads/develop.html">Develop</a>
+      <a href="file:///C:/Users/josep/Downloads/install.html">Install</a>
+      <a href="file:///C:/Users/josep/Downloads/about.html">About</a>
+      <a href="file:///C:/Users/josep/Downloads/verify.html">Verify Cert</a>
+    </div>
+    <div class="footer-protocol">PROTOCOL v1.0 · OPEN SOURCE · TIBOTICS</div>
+  </div>
+</footer>
+
+<script>
+// Load live stats
+fetch('https://dag.tibotics.com/list')
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('heroSkills').textContent = d.length;
+  }).catch(() => {});
+
+fetch('https://dag.tibotics.com/roster')
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('heroDroids').textContent = d.length;
+  }).catch(() => {});
+</script>
+
+
+</body></html>
