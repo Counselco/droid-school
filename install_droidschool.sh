@@ -32,7 +32,7 @@ echo ""
 
 # ── STEP 1: OPERATOR INFO ──────────────────────────────────
 
-echo -e "${BOLD}STEP 1 OF 5 — WHO ARE YOU?${RESET}"
+echo -e "${BOLD}STEP 1 OF 6 — WHO ARE YOU?${RESET}"
 echo ""
 read -p "Your droid's name (e.g. max): " DROID_NAME
 read -p "Your name (operator): " OPERATOR_NAME
@@ -52,7 +52,7 @@ echo -e "${GREEN}✓ Droid identity: $TILDE_NAME${RESET}"
 # ── STEP 2: DETECT DROID ENVIRONMENT ──────────────────────
 
 echo ""
-echo -e "${BOLD}STEP 2 OF 5 — DETECTING YOUR DROID ENVIRONMENT${RESET}"
+echo -e "${BOLD}STEP 2 OF 6 — DETECTING YOUR DROID ENVIRONMENT${RESET}"
 echo ""
 
 MEMORY_FILE=""
@@ -95,7 +95,7 @@ echo -e "${GREEN}✓ Detected: $DROID_TYPE at $MEMORY_FILE${RESET}"
 # ── STEP 3: API KEY ────────────────────────────────────────
 
 echo ""
-echo -e "${BOLD}STEP 3 OF 5 — API KEY SETUP${RESET}"
+echo -e "${BOLD}STEP 3 OF 6 — API KEY SETUP${RESET}"
 echo ""
 echo "Your droid needs an API key to reason and respond."
 echo "Which provider powers your droid?"
@@ -174,7 +174,7 @@ fi
 # ── STEP 4: ENROLL ON DAG + GENERATE SERIAL NUMBER ────────
 
 echo ""
-echo -e "${BOLD}STEP 4 OF 5 — ENROLLING ON DROIDSCHOOL${RESET}"
+echo -e "${BOLD}STEP 4 OF 6 — ENROLLING ON DROIDSCHOOL${RESET}"
 echo ""
 echo "Registering $TILDE_NAME on the DroidSchool DAG..."
 
@@ -226,10 +226,26 @@ else
   echo -e "${GOLD}⚠ Will register serial when DAG is reachable${RESET}"
 fi
 
-# ── STEP 5: WRITE MEMORY FILE ─────────────────────────────
+# ── STEP 5: MEMORY PERMISSIONS ────────────────────────────
 
 echo ""
-echo -e "${BOLD}STEP 5 OF 5 — WRITING DROIDSCHOOL MEMORY${RESET}"
+echo -e "${BOLD}STEP 5 OF 6 — MEMORY PERMISSIONS${RESET}"
+echo ""
+echo "Opening memory permissions page in your browser..."
+if command -v open &>/dev/null; then
+  open "https://tibotics.com/memory-policy.html"
+elif command -v xdg-open &>/dev/null; then
+  xdg-open "https://tibotics.com/memory-policy.html"
+else
+  echo "Visit: https://tibotics.com/memory-policy.html"
+fi
+echo "Review and confirm your selections, then press Enter here to continue."
+read -p "Press Enter after confirming permissions in the browser: "
+
+# ── STEP 6: WRITE MEMORY FILE ─────────────────────────────
+
+echo ""
+echo -e "${BOLD}STEP 6 OF 6 — WRITING DROIDSCHOOL MEMORY${RESET}"
 echo ""
 
 mkdir -p "$(dirname "$MEMORY_FILE")"
