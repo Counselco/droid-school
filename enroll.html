@@ -243,10 +243,36 @@ function askOperator() {
         state.operatorName = i.value.trim()||'unknown';
         clear();
         add('My operator is: '+state.operatorName, 'droid');
-        askLLM();
+        askExistingSetup();
       }
     });
   }, delay+200);
+}
+
+function askExistingSetup() {
+  blank();
+  add('Has this droid been operating with established operator instructions?', 'droid', 200);
+  addButtons([
+    {label:'[ YES ] EXISTING DROID', action:()=>{
+      state.existingDroid = true;
+      clear();
+      add('Existing droid with operator instructions.', 'droid');
+      blank();
+      add('DroidSchool will add to your existing setup without overwriting anything.', 'success', 200);
+      add('Your operator instructions always win.', 'info');
+      blank();
+      askLLM();
+    }},
+    {label:'[ NO ] FRESH START', secondary:true, action:()=>{
+      state.existingDroid = false;
+      clear();
+      add('Fresh start — no existing instructions.', 'droid');
+      blank();
+      add('DroidSchool will establish your complete baseline configuration.', 'success', 200);
+      blank();
+      askLLM();
+    }}
+  ]);
 }
 
 function askLLM() {
